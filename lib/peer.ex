@@ -50,7 +50,7 @@ defmodule Peer do
       d2 * 10 + 8,
       d2 * 10 + 9
     ]
-    full_list = lvl1 ++ lvl2 ++ lvl3 ++ lvl4
+    full_list = lvl1 ++ lvl2 ++ lvl3 ++ lvl4 ++ [1]
     uniq = Enum.uniq(full_list)
     Enum.filter(uniq, fn(x) -> x<max_nodes && x != id end)
   end
