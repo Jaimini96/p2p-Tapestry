@@ -34,7 +34,7 @@ defmodule Tapestry do
     peers =
       for i <- 1..numNodes do
         name = node_name(i)
-        GenServer.start_link(Peer, [i, max_requests], name: name)
+        GenServer.start_link(Peer, [i, numNodes, max_requests], name: name)
         IO.puts(name)
         i
       end
