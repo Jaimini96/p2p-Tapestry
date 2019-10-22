@@ -35,14 +35,29 @@ defmodule Tapestry do
       for i <- 1..numNodes do
         name = node_name(i)
         GenServer.start_link(Peer, [i, numNodes, max_requests], name: name)
-        IO.puts(name)
+        # IO.puts(name)
         i
       end
 
-    IO.inspect(peers)
+    datastore = :ets.new(:datastore, [:set, :public, :named_table])
+    :ets.insert(datastore, {"ets_hop_count",0})
+    # IO.inspect(peers)
+    for _i <- 1..max_requests do
+      start_requests(peers)
+    end
+    ets_count = elem(Enum.at(:ets.lookup(:datastore, "ets_hop_count"),0),1)
+    IO.inspect ets_count
     Process.sleep(:infinity)
   end
 
+  def start_requests(peer_list) do
+    for i <- peer_list do
+      hop_count = 0
+      # hop_list = []
+      final_target = Enum.random(peer_list)
+      GenServer.cast(node_name(i), {:lookup, {hop_count,final_target}})
+    end
+  end
   def node_name(x) do
     a = x |> Integer.to_string() |> String.pad_leading(4, "0")
 

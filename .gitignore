@@ -22,3 +22,13 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 tapestry-*.tar
 
+#Ignore elixir build dir
+/.elixir_ls
+
+#Ignore elixir executable
+tapestry
+
+#Ignore project reports
+*.docx
+*.pdf
+
