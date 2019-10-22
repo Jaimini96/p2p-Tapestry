@@ -45,8 +45,8 @@ defmodule Tapestry do
     for _i <- 1..max_requests do
       start_requests(peers)
     end
-    ets_count = elem(Enum.at(:ets.lookup(:datastore, "ets_hop_count"),0),1)
-    IO.inspect ets_count
+    max_hop_count = elem(Enum.at(:ets.lookup(:datastore, "ets_hop_count"),0),1)
+    IO.inspect max_hop_count
     Process.sleep(:infinity)
   end
 
