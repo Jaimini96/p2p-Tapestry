@@ -153,13 +153,13 @@ defmodule Peer do
   end
 
   def node_name(x) do
-    a = x |> get_hex_value() |> String.pad_leading(8, "0")
+    a = x |> get_hex_hash() |> String.pad_leading(8, "0")
 
     ("Elixir.N" <> a)
     |> String.to_atom()
   end
 
-  def get_hex_value(x) do
+  def get_hex_hash(x) do
     Integer.to_string(x, 16)
   end
 
