@@ -2,7 +2,7 @@ defmodule Tapestry do
   use GenServer
 
   def init([num_nodes, num_requests]) do
-    {:ok, {num_nodes, num_requests}}
+    {:ok, [num_nodes, num_requests]}
   end
 
   def main(args) do
@@ -28,7 +28,7 @@ defmodule Tapestry do
     main(numNodes, max_requests, failure_percentage)
   end
 
-  def main(numNodes, max_requests \\ 1, _failure_percentage) do
+  def main(numNodes, max_requests \\ 1, failure_percentage) do
     GenServer.start_link(Tapestry, [numNodes, max_requests], name: Master)
 
     peers =
@@ -39,25 +39,52 @@ defmodule Tapestry do
         i
       end
 
+    fail_forcefully(failure_percentage)
     datastore = :ets.new(:datastore, [:set, :public, :named_table])
-    :ets.insert(datastore, {"ets_hop_count",0})
+    :ets.insert(datastore, {"ets_hop_count", 0})
     # IO.inspect(peers)
     for _i <- 1..max_requests do
-      start_requests(peers)
+      start_requests(peers, failure_percentage)
     end
-    max_hop_count = elem(Enum.at(:ets.lookup(:datastore, "ets_hop_count"),0),1)
-    IO.inspect max_hop_count
+
+    Process.sleep(2000)
+    max_hop_count = elem(Enum.at(:ets.lookup(:datastore, "ets_hop_count"), 0), 1)
+    # IO.inspect(max_hop_count)
+    IO.puts("Maximum number of hops : #{max_hop_count}")
     Process.sleep(:infinity)
   end
 
-  def start_requests(peer_list) do
-    for i <- peer_list do
-      hop_count = 0
-      # hop_list = []
-      final_target = Enum.random(peer_list)
-      GenServer.cast(node_name(i), {:lookup, {hop_count,final_target}})
+  def fail_forcefully(percentage) do
+
+    if percentage == 0 do
+      ""
+    else GenServer.cast(Master, {:goto_sleep, percentage})
     end
   end
+
+  def handle_cast({:goto_sleep, percentage }, [num_nodes, num_requests]) do
+    sleeping_nodes_count = round(num_nodes*percentage / 100)
+    sleeping_nodes = Enum.take_random(Enum.to_list( 1.. num_nodes),sleeping_nodes_count)
+    IO.puts("Forcefully Failed nodes: #{inspect sleeping_nodes} ")
+    Enum.each sleeping_nodes, fn( node ) ->
+      GenServer.cast(node_name(node),{:goto_sleep, :going_to_sleep })
+    end
+    {:noreply,[num_nodes, num_requests]}
+  end
+
+  def start_requests(peer_list, failure_prcnt) do
+    for i <- peer_list do
+      hop_count = 0
+      hop_list = []
+      final_target = Enum.random(peer_list)
+      case failure_prcnt == 0 do
+        true -> GenServer.cast(node_name(i), {:lookup, {false, hop_list, hop_count, final_target}})
+        false -> GenServer.cast(node_name(i), {:lookup, {true, hop_list, hop_count, final_target}})
+      end
+
+    end
+  end
+
   def node_name(x) do
     a = x |> Integer.to_string() |> String.pad_leading(4, "0")
 
