@@ -8,16 +8,15 @@ Abhishek Jaimini UFID: 7365-2858
 
 ## **Steps to run code on Windows 10**
 
-**Run with Escript (Recommended)**
+### Run with Escript (Recommended)
+
 1. Open Terminal
 2. cd mishra_jaimini/p2p-Tapestry
 3. Generate executable with `mix escript.build`
 4. Run with `escript ./tapestry numNodes numRequests`
 5. For Bonus part, run with `escript ./tapestry numNodes numRequests failure-percentage`
 
-**OR**
-
-**Run with Mix**
+### Run with Mix
 
 `mix run project3.exs numNodes numRequests`
 
@@ -29,9 +28,11 @@ Tapestry is a peer-to-peer overlay network which provides a distributed hash tab
 
 Peer-to-Peer overlay networks can be used to provide many useful services. The goal of this project is to implement in Elixir using the actor model the Tapestry Algorithm and a simple object access service to prove its usefulness. The specification of the Tapestry protocol can be found in the paper-
 
-Tapestry: A Resilient Global-Scale Overlay for Service Deployment by Ben Y. Zhao, Ling Huang, Jeremy Stribling, Sean C. Rhea, Anthony D. Joseph and John D. Kubiatowicz. Link to paper- https://pdos.csail.mit.edu/~strib/docs/tapestry/tapestry_jsac03.pdf. 
+Tapestry: A Resilient Global-Scale Overlay for Service Deployment by Ben Y. Zhao, Ling Huang, Jeremy Stribling, Sean C. Rhea, Anthony D. Joseph and John D. Kubiatowicz.
 
-Wikipedia page: https://en.wikipedia.org/wiki/Tapestry_(DHT)
+Link - <https://pdos.csail.mit.edu/~strib/docs/tapestry/tapestry_jsac03.pdf>
+
+Wikipedia page: <https://en.wikipedia.org/wiki/Tapestry_(DHT)>
 
 ## **What is working**
 
@@ -41,4 +42,4 @@ Then the routing is done by choosing each node as source and randomly selecting 
 
 ## **Largest network handled**
 
-Largest network size that we could handle was of 9999 nodes and 10 requests
+Largest network size that we could handle was of 9999 nodes and 10 requests.
