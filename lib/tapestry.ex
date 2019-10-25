@@ -85,8 +85,11 @@ defmodule Tapestry do
     end
   end
 
+  def get_hex_value(x) do
+    Integer.to_string(x, 16)
+  end
   def node_name(x) do
-    a = x |> Integer.to_string() |> String.pad_leading(4, "0")
+    a = x |> get_hex_value() |> String.pad_leading(8, "0")
 
     ("Elixir.N" <> a)
     |> String.to_atom()
