@@ -65,7 +65,8 @@ defmodule Tapestry do
   def handle_cast({:goto_sleep, percentage }, [num_nodes, num_requests]) do
     sleeping_nodes_count = round(num_nodes*percentage / 100)
     sleeping_nodes = Enum.take_random(Enum.to_list( 1.. num_nodes),sleeping_nodes_count)
-    IO.puts("Forcefully Failed nodes: #{inspect sleeping_nodes} ")
+    sleeping_nodes_hash = Enum.map(sleeping_nodes, fn(x) -> node_name(x) end)
+    IO.puts("Forcefully Failed nodes: #{inspect sleeping_nodes_hash } ")
     Enum.each sleeping_nodes, fn( node ) ->
       GenServer.cast(node_name(node),{:goto_sleep, :going_to_sleep })
     end
@@ -85,11 +86,11 @@ defmodule Tapestry do
     end
   end
 
-  def get_hex_value(x) do
+  def get_hex_hash(x) do
     Integer.to_string(x, 16)
   end
   def node_name(x) do
-    a = x |> get_hex_value() |> String.pad_leading(8, "0")
+    a = x |> get_hex_hash() |> String.pad_leading(8, "0")
 
     ("Elixir.N" <> a)
     |> String.to_atom()
