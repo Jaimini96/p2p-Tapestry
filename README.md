@@ -26,11 +26,11 @@ Bonus - `mix run project3.exs numNodes numRequests failure-percentage`
 
 Tapestry is a peer-to-peer overlay network which provides a distributed hash table, routing, and multicasting infrastructure for distributed applications. The Tapestry peer-to-peer system offers efficient, scalable, self-repairing, location-aware routing to nearby resources.
 
-Peer-to-Peer overlay networks can be used to provide many useful services. The goal of this project is to implement in Elixir using the actor model the Tapestry Algorithm and a simple object access service to prove its usefulness. The specification of the Tapestry protocol can be found in the paper-
+Peer-to-Peer overlay networks can be used to provide many useful services. The goal of this project is to implement in Elixir using the actor model the Tapestry Algorithm and a simple object access service to prove its usefulness. The specification of the Tapestry protocol can be found in the paper -
 
 Tapestry: A Resilient Global-Scale Overlay for Service Deployment by Ben Y. Zhao, Ling Huang, Jeremy Stribling, Sean C. Rhea, Anthony D. Joseph and John D. Kubiatowicz.
 
-Link - <https://pdos.csail.mit.edu/~strib/docs/tapestry/tapestry_jsac03.pdf>
+Link to the paper: <https://pdos.csail.mit.edu/~strib/docs/tapestry/tapestry_jsac03.pdf>
 
 Wikipedia page: <https://en.wikipedia.org/wiki/Tapestry_(DHT)>
 
