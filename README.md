@@ -2,16 +2,16 @@
 
 ## **Group Member Names -**
 
-Nihal Mishra UFID: 3075-9823
+Nihal Mishra 
 
-Abhishek Jaimini UFID: 7365-2858
+Abhishek Jaimini 
 
 ## **Steps to run code on Windows 10**
 
 ### Run with Escript (Recommended)
 
 1. Open Terminal
-2. cd mishra_jaimini/p2p-Tapestry
+2. cd p2p-Tapestry
 3. Generate executable with `mix escript.build`
 4. Run with `escript ./tapestry numNodes numRequests`
 5. For Bonus part, run with `escript ./tapestry numNodes numRequests failure-percentage`
